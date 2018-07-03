@@ -4,7 +4,7 @@ var speed = 30;
 
 function typeWriter() {
     if (i < txt.length) {
-    document.getElementById("demo").innerHTML += txt.charAt(i);
+    document.getElementById("type-writer").innerHTML += txt.charAt(i);
     i++;
     setTimeout(typeWriter, speed);
     }
@@ -46,12 +46,20 @@ function startGame() {
 function checkLetters(letter) {
 
     var letterInWord = false; 
+    var duplicateLetter = false; 
 
     for (var i = 0; i < num; i++) {
         if (chosenWord[i] === letter) {
             letterInWord = true; 
         }
     }
+
+    for (var i = 0; i < wrongGuesses.length; i++) {
+        if (letter == wrongGuesses[i]) {
+            alert("you've already guessed this letter");
+            duplicateLetter = true; 
+        }
+    } 
 
     if (letterInWord) {
         for (var i = 0; i < num; i++) {
@@ -62,7 +70,7 @@ function checkLetters(letter) {
     } else {
         
         allLetters.forEach(function(element) {
-            if (letter == element) {
+            if ((letter == element) && (!duplicateLetter)) {
                 guessesLeft --;
                 wrongGuesses.push(letter); 
             }
